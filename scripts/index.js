@@ -11,11 +11,11 @@ openPopupButton.addEventListener('click', function () {
   popup.classList.toggle('popup_opened');
   nameInput.value = nameHtml.textContent;
   descriptionInput.value = descriptionHtml.textContent;
-})
+});
 
 closePopupButton.addEventListener('click', function () {
   popup.classList.toggle('popup_opened');
-})
+});
 
 function formSubmitHandler(event) {
   event.preventDefault();

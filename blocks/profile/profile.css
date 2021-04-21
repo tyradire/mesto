@@ -17,5 +17,6 @@
 @media (max-width: 600px) {
   .profile {
     max-width: 282px;
+    margin-top: 42px;
   }
 }
