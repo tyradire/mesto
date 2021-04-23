@@ -3,6 +3,9 @@
   justify-content: space-between;
   color: #000;
   width: 246px;
-  margin: 25px auto 31px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 19px;
+  padding-bottom: 28px;
   align-items: center;
 }
