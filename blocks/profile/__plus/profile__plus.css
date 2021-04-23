@@ -1,0 +1,23 @@
+.profile__plus {
+  background-image: url(../../../images/plus.svg);
+  background-size: cover;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  outline: 0;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+}
+
+.profile__plus:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .profile__plus {
+    width: 16px;
+    height: 16px;
+  }
+}

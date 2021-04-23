@@ -14,13 +14,13 @@ function formSubmitHandler(event) {
   popup.classList.toggle('popup_opened');
 }
 
-function formOpenButton(event) {
+function formOpenButton() {
   nameInput.value = nameHtml.textContent;
   descriptionInput.value = descriptionHtml.textContent;
   popup.classList.toggle('popup_opened');
 }
 
-function formCloseButton(event) {
+function formCloseButton() {
   popup.classList.toggle('popup_opened');
 }
 

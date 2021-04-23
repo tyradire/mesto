@@ -23,6 +23,7 @@
 @import url(../blocks/profile/__subtitle/profile__subtitle.css);
 @import url(../blocks/profile/__editable/profile__editable.css);
 @import url(../blocks/profile/__name-with-button/profile__name-with-button.css);
+@import url(../blocks/profile/__plus/profile__plus.css);
 
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
