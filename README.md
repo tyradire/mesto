@@ -15,4 +15,4 @@
 * **SVG графика**
 
 **Ссылка на GitHub Pages**
-* https://tyradire.github.io/mwsto/
+* https://tyradire.github.io/mesto/
