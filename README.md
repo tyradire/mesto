@@ -15,4 +15,4 @@
 * **SVG графика**
 
 **Ссылка на GitHub Pages**
-* https://tyradire.github.io/russian-travel/
+* https://tyradire.github.io/mwsto/
