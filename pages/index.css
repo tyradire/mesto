@@ -28,8 +28,17 @@
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__like/element__like.css);
+@import url(../blocks/element/__like/_active/element__like_active.css);
+@import url(../blocks/element/__delete/element__delete.css);
 @import url(../blocks/element/__paragraph/element__paragraph.css);
 @import url(../blocks/element/__place/element__place.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
+
+@import url(../blocks/cover/cover.css);
+@import url(../blocks/cover/__button-close/cover__button-close.css);
+@import url(../blocks/cover/__description/cover__description.css);
+@import url(../blocks/cover/__image/cover__image.css);
+@import url(../blocks/cover/__popup/cover__popup.css);
+@import url(../blocks/cover/_visible/cover__visible.css);

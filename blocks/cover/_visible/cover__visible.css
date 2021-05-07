@@ -1,4 +1,4 @@
-.popup_opened {
+.cover_visible {
   visibility: visible;
   opacity: 1;
   transition: .5s;
