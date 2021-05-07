@@ -53,7 +53,7 @@ function handleRemovePlace(evt) {
 }
 
 function openPopupImage(placeParagraph, placeLink) { 
-  popupImage.querySelector('#popup-image').src = placeLink;
+  popupImage.querySelector('.cover__image').src = placeLink;
   popupImage.querySelector('.cover__description').textContent = placeParagraph;
   togglePopupImage();
 }
