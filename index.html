@@ -30,11 +30,11 @@
     <footer class="footer">
       <p class="footer__copyright">&COPY; 2021 Mesto Russia</p>
     </footer>
-    <div class="cover" id="popup-image">
-      <div class="cover__popup">
-        <button type="button" class="cover__button-close" aria-label="Закрыть"></button>
-        <img class="cover__image">
-      <h3 class="cover__description"></h3>
+    <div class="popup popup__background_dark" id="popup-image">
+      <div class="popup__cover">
+        <button type="button" class="popup__close" aria-label="Закрыть"></button>
+        <img class="popup__image" alt="">
+      <h3 class="popup__description"></h3>
       </div>
     </div>
     <div class="popup" id="popup-edit">
@@ -42,8 +42,8 @@
         <button type="button" class="popup__close" aria-label="Закрыть"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form" name="form">
-          <input type="text" class="popup__input popup__input_type_name" name="name">
-          <input type="text" class="popup__input popup__input_type_description" name="description">
+          <input type="text" class="popup__input popup__input_type_name" name="name" required>
+          <input type="text" class="popup__input popup__input_type_description" name="description" required>
           <button type="submit" class="popup__button">Сохранить</button>
         </form>
       </div>
@@ -53,15 +53,15 @@
         <button type="button" class="popup__close" aria-label="Закрыть"></button>
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form" name="form" id="popupAddForm">
-          <input type="text" class="popup__input popup__input_type_place" name="place" placeholder="Название">
-          <input type="text" class="popup__input popup__input_type_link" name="link" placeholder="Ссылка на картинку">
+          <input type="text" class="popup__input popup__input_type_place" name="place" placeholder="Название" required>
+          <input type="text" class="popup__input popup__input_type_link" name="link" placeholder="Ссылка на картинку" required>
           <button type="submit" class="popup__button popup__button_add">Создать</button>
         </form>
       </div>
     </div>
     <template id="place-template">
       <article class="element">
-        <img class="element__image" id="image">
+        <img class="element__image" alt="" id="image">
         <button type="button" class="element__delete" aria-label="Удалить"></button>
         <div class="element__place">
           <h2 class="element__paragraph"></h2>
