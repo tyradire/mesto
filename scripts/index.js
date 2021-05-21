@@ -17,6 +17,16 @@ const linkInput = document.querySelector('.popup__input_type_link');
 const popupImage = document.querySelector('#popup-image');
 const closePopupImageButton = popupImage.querySelector('.popup__close');
 
+const config = ({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  //inactiveButtonClass: '.popup__button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+});
+
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -60,7 +70,7 @@ function openPopupImage(placeParagraph, placeLink) {
   imgPopupImage.src = placeLink;
   imgPopupImage.alt = placeParagraph;
   descriptionPopupImage.textContent = placeParagraph;
-  togglePopup(popupImage);
+  openAnyPopup(popupImage);
 }
 
 function removePopupFields() {
@@ -90,10 +100,9 @@ function createTemplate (paragraph, link) {
 }
 
 addPlaceButton.addEventListener('submit', function (evt) {
-  evt.preventDefault();
   placesContainer.prepend(createTemplate(placeInput.value, linkInput.value)); //добавление в хтмл шаблона
   removePopupFields(); //обнуление полей в попапе
-  togglePopup(popupAdd); //закрытие попапа добавления карточки
+  togglePopup(popupAdd); //закрытие попапа добавления карточки 
 });
 
 function editProfileFields(evt) {
@@ -103,26 +112,55 @@ function editProfileFields(evt) {
   togglePopup(popupEdit);
 }
 
-function openEditForm() {
+function openEditForm() { // открывание формы с редактированием
   nameInput.value = nameHtml.textContent;
   descriptionInput.value = descriptionHtml.textContent;
-  togglePopup(popupEdit);
+  openAnyPopup(popupEdit);
 }
 
 formElement.addEventListener('submit', editProfileFields);
 openPopupEditButton.addEventListener('click', openEditForm);
-closePopupEditButton.addEventListener('click', () => togglePopup(popupEdit));
 
-openPopupAddButton.addEventListener('click', () => togglePopup(popupAdd));
-closePopupAddButton.addEventListener('click', closePopupAdd);
-
-function closePopupAdd() {
-  removePopupFields();
-  togglePopup(popupAdd);
-}
+openPopupAddButton.addEventListener('click', () => openAnyPopup(popupAdd));
 
 function togglePopup (popup) {
   popup.classList.toggle('popup_opened');
 }
 
-closePopupImageButton.addEventListener('click', () => togglePopup(popupImage));
+function openAnyPopup (popup) {
+  const { inputSelector, submitButtonSelector, ...restEnableValidation } = config;
+  popup.classList.toggle('popup_opened');
+  document.myParam = popup;
+  document.addEventListener('keydown', checkPressEsc);
+  popup.addEventListener('mousedown', checkClickForClose);
+  const inputList = Array.from(popup.querySelectorAll(inputSelector));
+  inputList.forEach((inputElement) => {
+      hideInputError(popup, inputElement, restEnableValidation);
+  })
+  if (!(popup===popupImage)) {
+    toggleButtonState (popup.querySelector(submitButtonSelector), inputList);
+  }
+  removePopupFields();
+}
+
+const checkPressEsc = (evt) => {
+  if (evt.key === 'Escape') {
+    closeAnyPopup (evt.currentTarget.myParam);
+  };
+}
+
+// Закрытие попапа с удалением слушателя
+function closeAnyPopup (popup) {
+  popup.classList.toggle('popup_opened');
+  document.removeEventListener('keydown', checkPressEsc); 
+  popup.removeEventListener('mousedown', checkClickForClose);
+}
+
+const checkClickForClose = (evt) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')){
+      closeAnyPopup (evt.currentTarget);
+  };
+}
+
+
+enableValidation(config);

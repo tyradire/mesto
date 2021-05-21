@@ -28,3 +28,8 @@
     margin-top: 45px;
   }
 }
+
+.popup__button:disabled {
+  opacity: 0.2;
+  cursor: default;
+}
