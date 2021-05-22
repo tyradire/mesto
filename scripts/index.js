@@ -73,9 +73,12 @@ function openPopupImage(placeParagraph, placeLink) {
   openAnyPopup(popupImage);
 }
 
+const fieldInputPlace = formAddElement.querySelector('.popup__input_type_place');
+const fieldInputLink = formAddElement.querySelector('.popup__input_type_link');
+
 function removePopupFields() {
-  formAddElement.querySelector('.popup__input_type_place').value = '';
-  formAddElement.querySelector('.popup__input_type_link').value = '';
+  fieldInputPlace.value = '';
+  fieldInputLink.value = '';
 }
 
 function toggleLikeOnCard (evt) {
@@ -101,46 +104,39 @@ function createTemplate (paragraph, link) {
 
 addPlaceButton.addEventListener('submit', function (evt) {
   placesContainer.prepend(createTemplate(placeInput.value, linkInput.value)); //добавление в хтмл шаблона
-  removePopupFields(); //обнуление полей в попапе
-  togglePopup(popupAdd); //закрытие попапа добавления карточки 
+  closeAnyPopup(popupAdd); //закрытие попапа добавления карточки 
 });
 
 function editProfileFields(evt) {
   evt.preventDefault();
   nameHtml.textContent = nameInput.value;
   descriptionHtml.textContent = descriptionInput.value;
-  togglePopup(popupEdit);
+  closeAnyPopup(popupEdit);
 }
 
 function openEditForm() { // открывание формы с редактированием
   nameInput.value = nameHtml.textContent;
   descriptionInput.value = descriptionHtml.textContent;
+  hideErrorsAndToggleButton(popupEdit);
   openAnyPopup(popupEdit);
 }
 
 formElement.addEventListener('submit', editProfileFields);
 openPopupEditButton.addEventListener('click', openEditForm);
 
-openPopupAddButton.addEventListener('click', () => openAnyPopup(popupAdd));
+openPopupAddButton.addEventListener('click', () => openPopupAddCard(popupAdd));
 
-function togglePopup (popup) {
-  popup.classList.toggle('popup_opened');
+const openPopupAddCard = () => {
+  removePopupFields();
+  hideErrorsAndToggleButton(popupAdd);
+  openAnyPopup(popupAdd);
 }
 
 function openAnyPopup (popup) {
-  const { inputSelector, submitButtonSelector, ...restEnableValidation } = config;
   popup.classList.toggle('popup_opened');
   document.myParam = popup;
   document.addEventListener('keydown', checkPressEsc);
   popup.addEventListener('mousedown', checkClickForClose);
-  const inputList = Array.from(popup.querySelectorAll(inputSelector));
-  inputList.forEach((inputElement) => {
-      hideInputError(popup, inputElement, restEnableValidation);
-  })
-  if (!(popup===popupImage)) {
-    toggleButtonState (popup.querySelector(submitButtonSelector), inputList);
-  }
-  removePopupFields();
 }
 
 const checkPressEsc = (evt) => {

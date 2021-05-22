@@ -33,7 +33,7 @@
     <div class="popup popup_background_dark" id="popup-image">
       <div class="popup__cover">
         <button type="button" class="popup__close" aria-label="Закрыть"></button>
-        <img class="popup__image" alt="">
+        <img class="popup__image" alt=" " src=" ">
       <h3 class="popup__description"></h3>
       </div>
     </div>
@@ -41,7 +41,7 @@
       <div class="popup__container">
         <button type="button" class="popup__close" aria-label="Закрыть"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="form" novalidate>
+        <form class="popup__form" name="form-edit" novalidate>
           <input type="text" minlength="2" maxlength="40" class="popup__input popup__input_type_name" id="name" name="name" required>
           <span class="popup__form-error" id="name-error"></span>
           <input type="text" minlength="2" maxlength="200" class="popup__input popup__input_type_description" id="description" name="description" required>
@@ -54,7 +54,7 @@
       <div class="popup__container">
         <button type="button" class="popup__close" aria-label="Закрыть"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form" name="form" id="popupAddForm" novalidate>
+        <form class="popup__form" name="form-add" id="popupAddForm" novalidate>
           <input type="text" minlength="2" maxlength="30" class="popup__input popup__input_type_place" id="place" name="place" placeholder="Название" required>
           <span class="popup__form-error" id="place-error"></span>
           <input type="url" class="popup__input popup__input_type_link" id="link" name="link" placeholder="Ссылка на картинку" required>

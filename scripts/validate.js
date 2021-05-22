@@ -57,3 +57,12 @@ const enableValidation = (config) => {
     setEventListeners(formElement, restEnableValidation);
   })
 };
+
+const hideErrorsAndToggleButton = (popup) => {
+  const { inputSelector, submitButtonSelector, ...restEnableValidation } = config;
+  const inputList = Array.from(popup.querySelectorAll(inputSelector));
+  inputList.forEach((inputElement) => {
+    hideInputError(popup, inputElement, restEnableValidation);
+    toggleButtonState (popup.querySelector(submitButtonSelector), inputList);
+})
+}
