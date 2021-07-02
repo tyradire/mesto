@@ -56,40 +56,33 @@ const addPlaceButton = document.querySelector('#popupAddForm');
 const cardImage = document.querySelector('.popup__image');
 const cardText = document.querySelector('.popup__description');
 
+function createCard(item) {
+  const card = new Card(item, '#place-template', handleOpenPopup);
+  return card.generateCard();
+}
+
 addPlaceButton.addEventListener('submit', () => {
   const item = {
     name: placeInput.value,
     link: linkInput.value
   };
-  const card = new Card(item, 'place-template');
-  const cardElement = card.generateCard();
-  addImagePopupListener(cardElement);
-  placesContainer.prepend(cardElement);
+  placesContainer.prepend(createCard(item));
   closeAnyPopup(popupAdd);
 });
 
 initialCards.forEach((item) => {
-  const card = new Card(item, 'place-template');
-  const cardElement = card.generateCard();
-  addImagePopupListener(cardElement);
-  document.querySelector('.elements').append(cardElement);
+  placesContainer.prepend(createCard(item));
 });
 
-function addImagePopupListener(cardElement) {
-  cardElement.querySelector('#image').addEventListener('click', () => {
-    handleOpenPopup(cardElement);
-  });
-}
-
-function handleOpenPopup(cardElement) {
-  cardImage.src = cardElement.querySelector('#image').src;
-  cardImage.alt = cardElement.querySelector('.element__paragraph').textContent;
-  cardText.textContent = cardElement.querySelector('.element__paragraph').textContent;
+function handleOpenPopup(name, link) {
+  cardImage.src = link;
+  cardImage.alt = name;
+  cardText.textContent = name;
   openAnyPopup(popupImage);
 }
 
 function openAnyPopup (popup) {
-  popup.classList.toggle('popup_opened');
+  popup.classList.add('popup_opened');
   document.myParam = popup;
   document.addEventListener('keydown', checkPressEsc);
   popup.addEventListener('mousedown', checkClickForClose);
@@ -136,12 +129,12 @@ const openPopupAddCard = () => {
 
 const checkPressEsc = (evt) => {
   if (evt.key === 'Escape') {
-    closeAnyPopup (evt.currentTarget.myParam);
+    closeAnyPopup (document.myParam);
   };
 }
 
 function closeAnyPopup (popup) {
-  popup.classList.toggle('popup_opened');
+  popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', checkPressEsc); 
   popup.removeEventListener('mousedown', checkClickForClose);
 }
