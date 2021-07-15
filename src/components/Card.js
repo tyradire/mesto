@@ -53,8 +53,7 @@ export default class Card {
     });
 
     this._cardImage.addEventListener('click', () => {
-      this._handleOpenPopup(this._name, this._link);
+      this._handleOpenPopup(this._link, this._name);
     })
-
   }
 }
