@@ -39,12 +39,13 @@ export const popupAdd = document.querySelector('#popup-add');
 export const popupImageSelector = '#popup-image';
 export const popupEditSelector = '#popup-edit';
 export const popupAddSelector = '#popup-add';
+export const elementsContainerSelector = '.elements';
+export const profileTitleSelector = '.profile__title';
+export const profileSubtitleSelector = '.profile__subtitle';
 
 export const openPopupEditButton = document.querySelector('.profile__edit-button');
 export const openPopupAddButton = document.querySelector('.profile__add-button');
 
-export const cardImage = document.querySelector('.popup__image');
-export const cardText = document.querySelector('.popup__description');
 export const nameInput = document.querySelector('.popup__input_type_name');
 export const descriptionInput = document.querySelector('.popup__input_type_description');
 

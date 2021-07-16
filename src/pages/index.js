@@ -17,13 +17,16 @@ import {
   placeTemplate,
   popupImageSelector,
   popupEditSelector,
-  popupAddSelector
+  popupAddSelector,
+  elementsContainerSelector,
+  profileTitleSelector,
+  profileSubtitleSelector
 } from '../utils/constants.js';
 
 const newSection = new Section({
   items: initialCards,
   renderer: addGeneratedCard
-}, '.elements');
+}, elementsContainerSelector);
 
 newSection.renderItems();
 
@@ -32,8 +35,8 @@ const editPopup = new PopupWithForm(popupEditSelector, callbackEditSubmit);
 const addPopup = new PopupWithForm(popupAddSelector, callbackAddSubmit);
 
 const userInfo = new UserInfo({
-  nameSelector: '.profile__title',
-  infoSelector: '.profile__subtitle'
+  nameSelector: profileTitleSelector,
+  infoSelector: profileSubtitleSelector
 });
 
 function addGeneratedCard(item) {
@@ -41,15 +44,15 @@ function addGeneratedCard(item) {
   newSection.addItem(card.generateCard());
 }
 
-function callbackEditSubmit() {
-  userInfo.setUserInfo(editPopup.formValues.name, editPopup.formValues.description);
+function callbackEditSubmit(formValues) {
+  userInfo.setUserInfo(formValues.name, formValues.description);
   editPopup.close();
 }
 
-function callbackAddSubmit() {
+function callbackAddSubmit(formValues) {
   const item = {
-    name: addPopup.formValues.place,
-    link: addPopup.formValues.link
+    name: formValues.place,
+    link: formValues.link
   };
   addGeneratedCard(item);
   addPopup.close();

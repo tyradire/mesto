@@ -31,15 +31,11 @@ export default class Card {
   }
 
   _deleteCard() {
-    if (this._element) {
-      this._element.remove();
-    }
+    this._element.remove();
   }
 
   _likeCard() {
-    if (this._element) {
-      this._elementLike.classList.toggle('element__like_active');
-    }
+    this._elementLike.classList.toggle('element__like_active');
   }
 
   _setEventListeners() {
