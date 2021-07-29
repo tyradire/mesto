@@ -56,7 +56,6 @@ const newSection = new Section({
 
 api.getInitialCards()
 .then(res => {
-  console.log(res);
   newSection.addItems(res);
   newSection.renderItems();
 })
