@@ -24,8 +24,14 @@ export default class Card {
     return cardElement;
   }
 
-  setLikesAmount(amount) {
+  _setLikesAmount(amount) {
     this._likeAmount.textContent = amount;
+  }
+
+  updateLikes(likesAmount) {
+    this._setLikesAmount(likesAmount);
+    this._likeCard();
+    this._setNewLike();
   }
 
   generateCard() {
@@ -34,14 +40,14 @@ export default class Card {
       this._element.querySelector('.element__delete').classList.add('element__delete_hidden');
     }
     this._likeAmount = this._element.querySelector('.element__like-amount');
-    this.setLikesAmount(this._likes.length);
+    this._setLikesAmount(this._likes.length);
     
     this._cardImage = this._element.querySelector('#image');
     this._elementLike = this._element.querySelector('.element__like');
     this._setEventListeners();
     if (this._likes.some(likeOwner => likeOwner._id === this._idOwner)) {
       this._isLiked = true;
-      this.likeCard();
+      this._likeCard();
     }
 
     this._cardImage.src = this._link;
@@ -55,23 +61,22 @@ export default class Card {
     this._element.remove();
   }
 
-  likeCard() {
+  _likeCard() {
     this._elementLike.classList.toggle('element__like_active');
   }
 
-  setNewLike() {
+  _setNewLike() {
     this._isLiked = !this._isLiked;
   }
 
   _setEventListeners() {
     
     this._element.querySelector('.element__delete').addEventListener('click', () => {
-      this._handleDeleteIconClick(this._idCard);
+      this._handleDeleteIconClick(this._idCard, this);
     });
 
     this._elementLike.addEventListener('click', () => {
-      //this._likeCard();
-      this._handleLikeIconClick(this._isLiked, this._idCard);
+      this._handleLikeIconClick(this._isLiked, this._idCard, this);
     });
 
     this._cardImage.addEventListener('click', () => {

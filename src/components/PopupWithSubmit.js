@@ -12,7 +12,7 @@ export default class PopupWithSubmit extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popup.querySelector('.popup__button').addEventListener('click', this._reactionSubmit);
+    this._button.addEventListener('click', this._reactionSubmit);
   }
 
   setLoadingButton(isDel) {
@@ -25,7 +25,6 @@ export default class PopupWithSubmit extends Popup {
 
   removeEventListeners() {
     super.removeEventListeners();
-    this._popup.querySelector('.popup__button').removeEventListener('click', this._reactionSubmit);
+    this._button.removeEventListener('click', this._reactionSubmit);
   }
-
 }

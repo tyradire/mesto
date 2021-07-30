@@ -8,7 +8,6 @@ export default class Api {
     return fetch('https://nomoreparties.co/v1/cohort-26/users/me', {
       headers: this._headers
     }).then(this._handleResponse)
-    .catch(this._catchError)
   }
 
   editUserAvatar(avatar) {
@@ -19,7 +18,6 @@ export default class Api {
         avatar: avatar
       })
     }).then(this._handleResponse)
-    .catch(this._catchError)
   }
 
   editUserInfo(name, about) {
@@ -31,7 +29,6 @@ export default class Api {
         about: about
       })
     }).then(this._handleResponse)
-    .catch(this._catchError)
   }
 
   _handleResponse(res) {
@@ -41,15 +38,10 @@ export default class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  _catchError(err) {
-    console.log(err);
-  }
-
   getInitialCards() {
     return fetch(this._url+'/cards', {
       headers: this._headers
     }).then(this._handleResponse)
-    .catch(this._catchError)
   }
 
   postNewCard(name, link) {
@@ -61,7 +53,6 @@ export default class Api {
         link: link
       })
     }).then(this._handleResponse)
-    .catch(this._catchError)
   }
 
   deleteCard(cardId) {
@@ -69,7 +60,6 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     }).then(this._handleResponse)
-    .catch(this._catchError)
   }
 
   putLikeCard(cardId) {
@@ -77,7 +67,6 @@ export default class Api {
       method: 'PUT',
       headers: this._headers
     }).then(this._handleResponse)
-    .catch(this._catchError)
   }
 
   deleteLikeCard(cardId) {
@@ -85,6 +74,5 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers
     }).then(this._handleResponse)
-    .catch(this._catchError)
   }
 }

@@ -27,6 +27,5 @@ export const openPopupEditAvatar = document.querySelector('.profile__avatar-cove
 
 export const nameInput = document.querySelector('.popup__input_type_name');
 export const descriptionInput = document.querySelector('.popup__input_type_description');
-export const editAvatarInput = document.querySelector('.popup__input_type_avatar');
 
 export const placeTemplate = '#place-template';

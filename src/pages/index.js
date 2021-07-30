@@ -17,7 +17,6 @@ import {
   openPopupEditAvatar,
   nameInput,
   descriptionInput,
-  editAvatarInput,
   placeTemplate,
   popupImageSelector,
   popupEditSelector,
@@ -54,41 +53,39 @@ const newSection = new Section({
   renderer: addGeneratedCard
 }, elementsContainerSelector);
 
-api.getInitialCards()
-.then(res => {
-  newSection.addItems(res);
-  newSection.renderItems();
-})
+function catchError(err) {
+  console.log(err);
+}
 
 let idOwner;
-
-api.getUserInfo()
-.then(res => {
-  idOwner = res._id;
-  userInfo.setUserInfo(res.name, res.about);
-  userInfo.setUserAvatar(res.avatar);
-})
+const loadingPagePromises = [api.getInitialCards(), api.getUserInfo()];
+Promise.all(loadingPagePromises)
+  .then(results => {
+    idOwner = results[1]._id;
+    newSection.addItems(results[0]);
+    newSection.renderItems();
+    userInfo.setUserInfo(results[1].name, results[1].about, results[1].avatar);
+  })
+  .catch(err => catchError(err))
 
 function addGeneratedCard(item) {
   const card = new Card(item, placeTemplate, idOwner, handleOpenPopup, handleDeleteIconClick, handleLikeIconClick);
   newSection.addItem(card.generateCard()); //SECTION
 }
 
-function handleLikeIconClick(isLiked, idCard) {
+function handleLikeIconClick(isLiked, idCard, card) {
   if (!isLiked) {
     api.putLikeCard(idCard)
-  .then(res => {
-    this.setLikesAmount(res.likes.length);
-    this.likeCard();
-    this.setNewLike();
+    .then(res => {
+      card.updateLikes(res.likes.length);
   })
+    .catch(err => catchError(err))
   } else {
     api.deleteLikeCard(idCard)
     .then(res => {
-      this.setLikesAmount(res.likes.length);
-      this.likeCard();
-      this.setNewLike();
+      card.updateLikes(res.likes.length);
     })
+    .catch(err => catchError(err))
   }
 }
 
@@ -96,9 +93,10 @@ function callbackEditAvatarSubmit(formValues) {
   editAvatarPopup.setLoadingButton(true);
   api.editUserAvatar(formValues.avatar)
   .then(res => {
-    userInfo.setUserAvatar(res.avatar);
+    userInfo.setUserInfo(res.name, res.about, res.avatar);
     editAvatarPopup.close();
   })
+  .catch(err => catchError(err))
   .finally(() => {
     editAvatarPopup.setLoadingButton(false)
   });
@@ -108,9 +106,10 @@ function callbackEditSubmit(formValues) {
   editPopup.setLoadingButton(true);
   api.editUserInfo(formValues.name, formValues.description)
   .then(res => {
-    userInfo.setUserInfo(res.name, res.about);
+    userInfo.setUserInfo(res.name, res.about, res.avatar);
     editPopup.close();
   })
+  .catch(err => catchError(err))
   .finally(() => {
     editPopup.setLoadingButton(false)
   });
@@ -122,20 +121,22 @@ function callbackAddSubmit(formValues) {
   .then(res => {
     addGeneratedCard(res);
     addPopup.close();
-  })  
+  })
+  .catch(err => catchError(err))
   .finally(() => {
     addPopup.setLoadingButton(false)
   });
 }
 
-function handleDeleteIconClick(idCard) {
+function handleDeleteIconClick(idCard, card) {
   deleteCardPopup.setReactionSubmit(() => {
     deleteCardPopup.setLoadingButton(true);
     api.deleteCard(idCard)
     .then(res => {
-    this.deleteCard();
+    card.deleteCard();
     deleteCardPopup.close();
   })
+    .catch(err => catchError(err))
     .finally(() => {
       deleteCardPopup.setLoadingButton(false)
     })
@@ -157,7 +158,6 @@ const editAvatarValidation = new FormValidator(config, popupEditAvatar);
 editAvatarValidation.enableValidation();
 
 function openEditPopupForm() {
-  setEditAvatarInput(userInfo.getUserAvatar());
   editAvatarValidation.hideErrorsAndToggleButton();
   editAvatarPopup.open();
 }
@@ -166,10 +166,6 @@ function openEditForm() {
   setPopupEditInputs(userInfo.getUserInfo());
   editCardValidation.hideErrorsAndToggleButton();
   editPopup.open();
-}
-
-function setEditAvatarInput({avatar}) {
-  editAvatarInput.value = avatar;
 }
 
 function setPopupEditInputs({name, info}) {

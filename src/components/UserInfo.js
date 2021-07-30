@@ -12,18 +12,9 @@ export default class UserInfo {
     };
   }
 
-  getUserAvatar() {
-    return {
-      avatar: this._avatar.src
-    };
-  }
-
-  setUserInfo(name, info) {
+  setUserInfo(name, info, avatarLink) {
     this._name.textContent = name;
     this._info.textContent = info;
-  }
-
-  setUserAvatar(avatarLink) {
     this._avatar.src = avatarLink;
   }
 }
